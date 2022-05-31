@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -66,7 +68,7 @@ fun MessageCard(msg: Message){
                 color = MaterialTheme.colors.secondaryVariant,
                 style = MaterialTheme.typography.subtitle2
             )
-            Spacer(modifier = Modifier.height(2.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Surface (shape = MaterialTheme.shapes.medium, elevation = 1.dp) {
                 Text(
                     text = msg.body,
@@ -88,5 +90,22 @@ fun MessageCard(msg: Message){
 fun PreviewMessageCard(){
     ComposeTutorialTheme() {
         MessageCard(Message(author = "Cristóbal", body = "I'm learning Compose!"))
+    }
+}
+
+@Composable
+fun Conversation(messages: List<Message>){
+    LazyColumn {
+        items(messages) { message ->
+            MessageCard(message)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewConversation() {
+    ComposeTutorialTheme {
+        Conversation(SampleData.conversationSample)
     }
 }
